@@ -95,6 +95,7 @@ h1 {
     font-weight: 500;
     border: 1px solid var(--accent-primary);
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .cta-button:hover {
