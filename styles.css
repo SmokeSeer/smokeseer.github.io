@@ -277,6 +277,10 @@ h3 {
     flex-direction: column;
     gap: 20px;
     margin-top: 40px;
+
+    input, textarea {
+        font-size: 1em;
+    }
 }
 
 input, textarea {
