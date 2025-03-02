@@ -271,7 +271,7 @@ h3 {
 }
 
 .contact-container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -286,6 +286,13 @@ h3 {
     flex-direction: column;
     gap: 20px;
     margin-top: 40px;
+}
+
+#contact-confirmation {
+    font-size: 0.75em;
+    text-align: center;
+    margin: 20px;
+    color: var(--text-secondary);
 }
 
 input, textarea {
@@ -336,3 +343,39 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .rotating {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+  }
