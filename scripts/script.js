@@ -1,0 +1,46 @@
+const FORM_COLS = ['name', 'company', 'email', 'message'];
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Form submission handler
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your form submission logic here
+        // form.reset();
+        const button = form.querySelector('button');
+        button.innerHTML = '<i class="fa-solid fa-spinner rotating"></i>'
+
+        var formData = FORM_COLS.reduce((acc, col) => {
+            const idName = `contact-form-${col}`;
+            acc[col] = document.getElementById(idName).value;
+            return acc;
+        }
+        , {});
+
+        fetch("https://script.google.com/macros/s/AKfycby9JAnzrWH-yu0MYfDZ_9Rh31Q1rFSCo3uNjIOW_liwlO1Qrwag1_yt5IoE2fyC71QV/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            document.getElementById("contact-confirmation").innerText = "Thank you for your interest. Our team will contact you soon.";
+            form.style.display = 'none';
+            form.reset();
+            // alert('Thank you for your interest! We will contact you soon.');
+        }).catch(error => {
+            document.getElementById("contact-confirmation").innerText = "Something went wrong. Please try again later.";
+            button.innerHTML = "Get in Touch";
+            // alert('Something went wrong. Please try again later.')
+        });
+    });
+});
