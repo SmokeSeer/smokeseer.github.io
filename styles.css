@@ -87,7 +87,7 @@ h1 {
 .cta-button {
     display: inline-block;
     padding: 16px 32px;
-    background-color: var(--card-bg);
+    background-color: var(--secondary-bg);
     color: var(--accent-primary);
     text-decoration: none;
     border-radius: var(--border-radius);
@@ -163,35 +163,8 @@ h3 {
     color: var(--text-primary);
 }
 
-.tech-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.tech-content p {
-    color: var(--text-secondary);
-}
-
-.tech-list {
-    list-style: none;
-    margin-top: 30px;
-}
-
-.tech-list li {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    color: var(--text-secondary);
-}
-
-.tech-list i {
-    margin-right: 15px;
-    color: var(--accent-secondary);
-}
-
 #team {
-    background-color: var(--secondary-bg);
+    background-color: var(--primary-bg);
 }
 
 .team-container {
@@ -208,25 +181,6 @@ h3 {
     color: var(--text-secondary);
 }
 
-.university-badge {
-    text-align: center;
-    margin: 40px 0;
-    padding: 30px;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    border: 1px solid rgba(255, 107, 53, 0.1);
-}
-
-.cmu-logo {
-    max-width: 200px;
-    height: auto;
-    filter: brightness(0.9) contrast(1.1);
-}
-
 .expertise-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -237,7 +191,7 @@ h3 {
 .expertise-item {
     text-align: center;
     padding: 40px 30px;
-    background: var(--card-bg);
+    background: var(--dark-overlay);
     border-radius: var(--border-radius);
     transition: var(--transition);
     border: 1px solid rgba(255, 107, 53, 0.1);
@@ -267,7 +221,7 @@ h3 {
 }
 
 #contact {
-    background-color: var(--primary-bg);
+    background-color: var(--secondary-bg);
 }
 
 .contact-container {
@@ -289,7 +243,7 @@ h3 {
 }
 
 #contact-confirmation {
-    font-size: 0.75em;
+    font-size: 1em;
     text-align: center;
     margin: 20px;
     color: var(--text-secondary);
@@ -299,7 +253,7 @@ input, textarea {
     padding: 16px;
     border: 1px solid rgba(255, 107, 53, 0.1);
     border-radius: var(--border-radius);
-    background-color: var(--card-bg);
+    background-color: var(--dark-overlay);
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     transition: var(--transition);
@@ -322,7 +276,7 @@ input::placeholder, textarea::placeholder {
 footer {
     text-align: center;
     padding: 30px;
-    background-color: var(--secondary-bg);
+    background-color: var(--primary-bg);
     color: var(--text-secondary);
 }
 
