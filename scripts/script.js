@@ -27,6 +27,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Slideshow functionality
+    const slides = document.querySelectorAll('.slide');
+    const prevButton = document.querySelector('.prev-slide');
+    const nextButton = document.querySelector('.next-slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            // Pause all videos when changing slides
+            slide.querySelector('video').pause();
+        });
+        slides[index].classList.add('active');
+    }
+
+    prevButton.addEventListener('click', () => {
+        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+        showSlide(currentSlide);
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+        showSlide(currentSlide);
+    });
+
+    // Initialize first slide
+    showSlide(0);
+
     // Form submission handler
     const form = document.getElementById('contact-form');
     form.addEventListener('submit', function(e) {
