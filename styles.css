@@ -147,21 +147,53 @@ section {
 }
 
 .slam-videos {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease-out, padding 0.25s ease-out;
     width: 100%;
     margin-top: 60px;
-    /* background: var(--primary-bg); */
-    padding: 60px 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .slam-videos.active {
-    display: block;
+    padding: 60px 0;
+    transition: max-height 0.25s ease-in, padding 0.25s ease-in;
+}
+
+.minimal-ui::-webkit-media-controls {
+    display: none !important;
+}
+
+.minimal-ui::-webkit-media-controls-enclosure {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.minimal-ui::-webkit-media-controls-play-button,
+.minimal-ui::-webkit-media-controls-current-time-display,
+.minimal-ui::-webkit-media-controls-time-remaining-display,
+.minimal-ui::-webkit-media-controls-timeline,
+.minimal-ui::-webkit-media-controls-volume-slider,
+.minimal-ui::-webkit-media-controls-mute-button,
+.minimal-ui::-webkit-media-controls-fullscreen-button {
+    display: block !important;
+    margin: 0 5px;
 }
 
 .slam-videos-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .slam-videos h3 {
@@ -172,13 +204,16 @@ section {
 }
 
 .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    display: flex;
     gap: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
 .video-item {
     text-align: center;
+    margin: 20px;
+    flex: 1 1 45%;
 }
 
 .video-item h4 {
@@ -227,7 +262,7 @@ section {
 
 .coming-soon i {
     font-size: 3rem;
-    color: var(--text-secondary);
+    color: var (--text-secondary);
     margin-bottom: 20px;
 }
 
