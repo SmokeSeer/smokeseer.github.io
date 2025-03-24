@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     slamCard.addEventListener('click', function() {
         slamVideos.classList.toggle('active');
+        if (slamVideos.classList.contains('active')) {
+            slamVideos.style.maxHeight = (300 + slamVideos.scrollHeight) + "px";
+        } else {
+            slamVideos.style.maxHeight = "0px";
+        }
         // Pause all videos when closing the section
         if (!slamVideos.classList.contains('active')) {
             slamVideos.querySelectorAll('video').forEach(video => video.pause());

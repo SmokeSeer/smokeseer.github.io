@@ -4,7 +4,7 @@ let smokeParticles = [];
 let clock, delta, cubeSineDriver;
 
 // const SMOKE_RGB = "rgb(255, 218, 176)" 
-const SMOKE_RGB = "rgb(101, 101, 101)" 
+const SMOKE_RGB = "rgb(120, 120, 120)" 
 
 function init() {
     // Create clock for timing
