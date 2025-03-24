@@ -28,28 +28,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Slideshow functionality
+    const slidesContainer = document.querySelector('.slides-container');
     const slides = document.querySelectorAll('.slide');
-    const prevButton = document.querySelector('.prev-slide');
-    const nextButton = document.querySelector('.next-slide');
+    const dots = document.querySelectorAll('.dot');
     let currentSlide = 0;
 
     function showSlide(index) {
+        // Pause all videos
         slides.forEach(slide => {
-            slide.classList.remove('active');
-            // Pause all videos when changing slides
             slide.querySelector('video').pause();
         });
-        slides[index].classList.add('active');
+        
+        // Scroll to selected slide
+        slidesContainer.scrollTo({
+            left: slides[index].offsetLeft,
+            behavior: 'smooth'
+        });
+
+        // Update dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+
+        currentSlide = index;
     }
 
-    prevButton.addEventListener('click', () => {
-        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
-        showSlide(currentSlide);
+    // Handle dot clicks
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => showSlide(index));
     });
 
-    nextButton.addEventListener('click', () => {
-        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
-        showSlide(currentSlide);
+    // Handle scroll events
+    slidesContainer.addEventListener('scroll', () => {
+        const index = Math.round(slidesContainer.scrollLeft / slidesContainer.offsetWidth);
+        if (index !== currentSlide) {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
     });
 
     // Initialize first slide
