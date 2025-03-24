@@ -1,6 +1,17 @@
 const FORM_COLS = ['name', 'company', 'email', 'message'];
 
 document.addEventListener('DOMContentLoaded', function() {
+    // SLAM videos toggle
+    const slamCard = document.getElementById('slam-card');
+    const slamVideos = document.getElementById('slam-videos');
+    
+    slamCard.addEventListener('click', function() {
+        slamVideos.classList.toggle('active');
+        // Pause all videos when closing the section
+        if (!slamVideos.classList.contains('active')) {
+            slamVideos.querySelectorAll('video').forEach(video => video.pause());
+        }
+    });
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
