@@ -169,6 +169,7 @@ section {
     pointer-events: none;
     transition: opacity 0.3s ease;
     z-index: 100;
+    overflow: hidden;
 }
 
 .slam-videos.active {
@@ -554,15 +555,8 @@ footer {
 
 .slides-container {
     display: flex;
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.slides-container::-webkit-scrollbar {
-    display: none;
+    overflow: hidden;
+    width: 100%;
 }
 
 .slide {

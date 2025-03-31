@@ -6,8 +6,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const slamVideos = document.getElementById('slam-videos');
     const closeButton = slamVideos.querySelector('.close-button');
     
+    function handleVideoScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const direction = Math.sign(e.deltaX);
+        if (direction > 0) {
+            showSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
+        } else if (direction < 0) {
+            showSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
+        }
+    }
+
+    const debouncedHandleVideoScroll = _.debounce(handleVideoScroll, 50, {
+        leading: true,
+        trailing: false
+    });
+
     function toggleVideos(show) {
         slamVideos.classList.toggle('active', show);
+        document.body.style.overflow = show ? 'hidden' : '';
         
         if (!show) {
             slamVideos.querySelectorAll('video').forEach(video => video.pause());
@@ -15,8 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (show) {
             document.addEventListener('keydown', handleVideoKeypress);
+            slamVideos.addEventListener('wheel', debouncedHandleVideoScroll);
         } else {
             document.removeEventListener('keydown', handleVideoKeypress);
+            slamVideos.removeEventListener('wheel', debouncedHandleVideoScroll);
         }
     }
 
@@ -102,19 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle dot clicks
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => showSlide(index));
-    });
-
-    // Handle scroll events
-    slamVideos.addEventListener('wheel', (e) => {
-        if (!slamVideos.classList.contains('active')) return;
-
-        e.stopPropagation();
-        e.preventDefault();
-        const delta = Math.sign(e.deltaX);
-        const newIndex = currentSlide + delta;
-        if (newIndex >= 0 && newIndex < slides.length) {
-            showSlide(newIndex);
-        }
     });
 
     // Initialize first slide
