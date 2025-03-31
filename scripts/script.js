@@ -4,19 +4,82 @@ document.addEventListener('DOMContentLoaded', function() {
     // SLAM videos toggle
     const slamCard = document.getElementById('slam-card');
     const slamVideos = document.getElementById('slam-videos');
+    const closeButton = slamVideos.querySelector('.close-button');
     
-    slamCard.addEventListener('click', function() {
-        slamVideos.classList.toggle('active');
-        if (slamVideos.classList.contains('active')) {
-            slamVideos.style.maxHeight = (300 + slamVideos.scrollHeight) + "px";
-        } else {
-            slamVideos.style.maxHeight = "0px";
+    function handleVideoScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const direction = Math.sign(e.deltaX);
+        if (direction > 0) {
+            showSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
+        } else if (direction < 0) {
+            showSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
         }
-        // Pause all videos when closing the section
-        if (!slamVideos.classList.contains('active')) {
+    }
+
+    const debouncedHandleVideoScroll = _.debounce(handleVideoScroll, 50, {
+        leading: true,
+        trailing: false
+    });
+
+    function toggleVideos(show) {
+        slamVideos.classList.toggle('active', show);
+        document.body.style.overflow = show ? 'hidden' : '';
+        
+        if (!show) {
             slamVideos.querySelectorAll('video').forEach(video => video.pause());
         }
+        
+        if (show) {
+            document.addEventListener('keydown', handleVideoKeypress);
+            slamVideos.addEventListener('wheel', debouncedHandleVideoScroll);
+        } else {
+            document.removeEventListener('keydown', handleVideoKeypress);
+            slamVideos.removeEventListener('wheel', debouncedHandleVideoScroll);
+        }
+    }
+
+    function handleVideoKeypress(e) {
+        // Prevent default behavior for these keys while modal is open
+        if (['Space', 'ArrowLeft', 'ArrowRight', 'Escape'].includes(e.code)) {
+            e.preventDefault();
+        }
+
+        const currentVideo = slides[currentSlide].querySelector('video');
+
+        switch(e.code) {
+            case 'Space':
+                if (currentVideo.paused) {
+                    currentVideo.play();
+                } else {
+                    currentVideo.pause();
+                }
+                break;
+            case 'ArrowLeft':
+                showSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
+                break;
+            case 'ArrowRight':
+                showSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
+                break;
+            case 'Escape':
+                toggleVideos(false);
+                break;
+        }
+    }
+
+    // Close on backdrop click
+    document.querySelector('.backdrop').addEventListener('click', () => toggleVideos(false));
+    
+    slamCard.addEventListener('click', () => toggleVideos(true));
+    closeButton.addEventListener('click', () => toggleVideos(false));
+    
+    // Close on backdrop click
+    slamVideos.addEventListener('click', (e) => {
+        if (e.target === slamVideos) {
+            toggleVideos(false);
+        }
     });
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -26,6 +89,42 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Slideshow functionality
+    const slidesContainer = document.querySelector('.slides-container');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        // Pause and reset all videos
+        slides.forEach(slide => {
+            const video = slide.querySelector('video');
+            video.pause();
+            video.currentTime = 0;
+        });
+        
+        // Scroll to selected slide
+        slidesContainer.scrollTo({
+            left: slides[index].offsetLeft,
+            behavior: 'smooth'
+        });
+
+        // Update dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+
+        currentSlide = index;
+    }
+
+    // Handle dot clicks
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => showSlide(index));
+    });
+
+    // Initialize first slide
+    showSlide(0);
 
     // Form submission handler
     const form = document.getElementById('contact-form');

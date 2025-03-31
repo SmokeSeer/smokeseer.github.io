@@ -40,25 +40,36 @@
             </div>
         </div>
         <div class="slam-videos" id="slam-videos">
+            <button class="close-button" aria-label="Close videos">
+                <i class="fa-solid fa-times"></i>
+            </button>
             <div class="slam-videos-content">
-                <h3>State-Estimation and Mapping</h3>
-                <div class="video-grid">
-                    <div class="video-item">
-                        <h4>Real-time RGB Mapping</h4>
-                        <video controls class="minimal-ui">
-                            <source src="assets/technology/slam/real_time_RGB_mapping.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                <div class="video-slideshow">
+                    <div class="slides-container">
+                        <div class="slide">
+                            <div class="video-item">
+                                <h4>Real-time RGB Mapping</h4>
+                                <video controls class="minimal-ui">
+                                    <source src="assets/technology/slam/real_time_RGB_mapping.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="video-item">
+                                <h4>Thermal Mapping</h4>
+                                <video controls class="minimal-ui">
+                                    <source src="assets/technology/slam/thermal_mapping.webm" type="video/webm">
+                                </video>
+                            </div>
+                        </div>
                     </div>
-                    <div class="video-item">
-                        <h4>Thermal Mapping</h4>
-                        <video controls class="minimal-ui">
-                            <source src="assets/technology/slam/thermal_mapping.webm" type="video/webm">
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="slideshow-controls">
+                        <div class="dot active" data-slide="0"><span class="dot-label">RGB</span></div>
+                        <div class="dot" data-slide="1"><span class="dot-label">Thermal</span></div>
                     </div>
                 </div>
             </div>
+            <div class="backdrop"></div>
         </div>
         <div class="feature-content adverse-content" id="adverse-content">
             <div class="content-wrapper">
@@ -116,12 +127,12 @@
             </form>
         </div>
         <p id="contact-confirmation"></p>
+        <footer>
+            <p>&copy; 2025 SmokeSeer. All rights reserved.</p>
+        </footer>
     </section>
 
-    <footer>
-        <p>&copy; 2025 SmokeSeer. All rights reserved.</p>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
     <script src="scripts/script.js"></script>
     <script src="scripts/smoke-script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
